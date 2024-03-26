@@ -69,4 +69,6 @@ int is_built_in(char **input);
 
 int change_direc(char **input);
 
+void ttyerr(int status, int type, const char *command);
+
 #endif

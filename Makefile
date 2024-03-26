@@ -11,6 +11,7 @@ SRC = 	printf/print_f.c \
 		main.c \
 		built_in.c \
 		cd.c \
+		fork_exec_add.c \
 		my_put_nbr.c \
 		my_putchar.c \
 		my_putstr.c	\

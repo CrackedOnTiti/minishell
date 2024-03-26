@@ -22,23 +22,6 @@ static void child_killer(char *path, char *const arg[], char **env)
     my_putchar('\n');
 }
 
-void ttyerr(int status, int type, const char *command)
-{
-    if (errno == ENOEXEC) {
-        write(2, command, my_strlen(command));
-        write(2, ": Exec format error. Wrong Architecture.\n", 42);
-        if (type == 1)
-            exit(1);
-    }
-    if (status == 11) {
-        write(2, "Segmentation fault\n", 19);
-        if (type == 1)
-            exit(139);
-    }
-    if (status != 0 && type == 1)
-        exit(status >> 8);
-}
-
 static void fork_exec(char *path, char *const arguments[], char **env)
 {
     pid_t pid;
@@ -48,7 +31,8 @@ static void fork_exec(char *path, char *const arguments[], char **env)
     if (pid == -1) {
         my_printf("fork error\n");
         exit(84);
-    } else if (pid == 0) {
+    }
+    if (pid == 0) {
         child_killer(path, arguments, env);
     } else {
         waitpid(pid, &status, 0);
