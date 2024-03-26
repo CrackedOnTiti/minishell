@@ -16,7 +16,6 @@ int is_built_in(char **input, char **env)
     if (my_strncmp(input[0], "env", 3) == 0) {
         if (put_env(env) == 21)
             return 69;
-        return 1;
     }
     if (my_strncmp(input[0], "setenv", 2) == 0) {
         if (change_direc(input) == 21)

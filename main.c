@@ -45,7 +45,6 @@ static void fork_exec(char *path, char *const arguments[], char **env)
 int execer(const char *command, char *const arguments[], char **env)
 {
     char *path;
-
     size_t path_length = my_strlen("/bin/") + my_strlen(command) + 1;
 
     path = (char *)malloc(path_length * sizeof(char));
