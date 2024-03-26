@@ -45,6 +45,7 @@ static void fork_exec(char *path, char *const arguments[], char **env)
 int execer(const char *command, char *const arguments[], char **env)
 {
     char *path;
+
     size_t path_length = my_strlen("/bin/") + my_strlen(command) + 1;
 
     path = (char *)malloc(path_length * sizeof(char));
@@ -89,7 +90,7 @@ int inputer(char *input, char **temp, char **env)
     }
     temp[size] = NULL;
     env = environ;
-    return_v = is_built_in(temp);
+    return_v = is_built_in(temp, env);
     if (return_v == 69)
         return 1;
     if (return_v == 1)
@@ -143,9 +144,10 @@ int main(int argc, __attribute__((unused))char **argv, char **env)
     char *input = (char *)malloc(128 * sizeof(char));
     char **arguments = NULL;
     char **temp = NULL;
+    char **env_cp = env_alloc(env);
 
     basic_err(input, argc);
-    inf_lp(input, arguments, temp, env);
+    inf_lp(input, arguments, temp, env_cp);
     free(input);
     free(temp);
     free(arguments);

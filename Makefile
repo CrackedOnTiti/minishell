@@ -12,6 +12,8 @@ SRC = 	printf/print_f.c \
 		built_in.c \
 		cd.c \
 		fork_exec_add.c \
+		main_env_alloc.c \
+		env_prnt.c \
 		my_put_nbr.c \
 		my_putchar.c \
 		my_putstr.c	\
@@ -28,7 +30,7 @@ OBJ = $(SRC:.c=.o)
 
 EXECUTABLE = mysh
 
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -g3
 
 $(EXECUTABLE): $(OBJ)
 	$(CC) -lm -o $@ $(OBJ)
