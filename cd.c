@@ -18,9 +18,14 @@ static int may_i_enter(char *path)
 
 static int go_home(void)
 {
-    if (chdir("/home/") != 0) {
-        perror("/home/");
-        return 1;
+    char whereami[128];
+    
+    getcwd(whereami, 128);
+    for (; my_strcmp("/home", whereami); chdir(". .")) {
+        if (whereami[0] == '/')
+            chdir("/home");
+        if (!getcwd(whereami, 128))
+            break;
     }
     return 0;
 }
