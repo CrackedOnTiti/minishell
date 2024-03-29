@@ -75,4 +75,8 @@ char **env_alloc(char **env);
 
 int put_env(char **env);
 
+char *path_is(char **env, char *command);
+
+char **str_to_array_t(char *str);
+
 #endif

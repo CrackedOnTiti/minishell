@@ -44,20 +44,22 @@ static void fork_exec(char *path, char *const arguments[], char **env)
 
 int execer(const char *command, char *const arguments[], char **env)
 {
-    char *path;
-    size_t path_length = my_strlen("/bin/") + my_strlen(command) + 1;
+    char *path = NULL;
+    char *p_path = my_strdup(command);
+    size_t path_length = my_strlen(path_is(env,
+    (char *)command)) + my_strlen(command) + 1;
 
     path = (char *)malloc(path_length * sizeof(char));
     if (path == NULL) {
         my_printf("Malloc error\n");
         exit(84);
     }
-    my_strcpy(path, "/bin/");
-    my_strcat(path, command);
+    my_strcpy(path, path_is(env, (char *)command));
+    my_strcat(path, (char *)command);
     if (access(path, X_OK) == 0) {
         fork_exec(path, arguments, env);
     } else {
-        my_printf("%s: Command not found.\n", command);
+        my_printf("%s: Command not found.\n", p_path);
     }
     free(path);
     return 0;

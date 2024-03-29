@@ -14,6 +14,8 @@ SRC = 	printf/print_f.c \
 		fork_exec_add.c \
 		main_env_alloc.c \
 		env_prnt.c \
+		pathfinder.c \
+		my_str_to_word_array_twodots.c \
 		my_put_nbr.c \
 		my_putchar.c \
 		my_putstr.c	\
