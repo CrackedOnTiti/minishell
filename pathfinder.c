@@ -7,10 +7,20 @@
 
 #include "my.h"
 
-static int conditional(DIR *name, char *command)
+void print_arr(char **arr)
+{
+    for (int i = 0; arr[i]; i++)
+        my_printf("%s\n", arr[i]);
+}
+
+static int conditional(char *command, char *path)
 {
     struct dirent *entry = NULL;
+    DIR *name = NULL;
 
+    name = opendir(path);
+    if (!name)
+        return 2;
     entry = readdir(name);
     while (entry != NULL) {
         if (my_strcmp(entry->d_name, command) == 0)
@@ -23,15 +33,15 @@ static int conditional(DIR *name, char *command)
 static char *data_input(char *path, char *command, int *error)
 {
     char **path_data = str_to_array_t(path);
-    DIR *name = NULL;
+    int return_v = 0;
 
     if (!path[0])
         return command;
     for (int i = 0; path_data[i]; i++) {
-        name = opendir(path_data[i]);
-        if (!name)
+        return_v = conditional(command, path_data[i]);
+        if (return_v == 2)
             return command;
-        if (conditional(name, command) == 1)
+        if (return_v == 1)
             return path_data[i];
     }
     *error = 1;
@@ -42,8 +52,8 @@ static char *conditional2(char *command, char *path, char *env, int error)
 {
     path = data_input(env + 5, command, &error);
     if (!error) {
-    path = my_strcat(path, "/");
-    return path;
+        path = my_strcat(path, "/");
+        return path;
     } else
         return NULL;
     return 0;

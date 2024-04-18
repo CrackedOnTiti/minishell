@@ -26,5 +26,6 @@ char *my_strdup(char const *src)
         point[index] = src[index];
         index = index + 1;
     }
+    point[index] = '\0';
     return (point);
 }

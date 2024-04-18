@@ -49,13 +49,13 @@ int execer(const char *command, char *const arguments[], char **env)
     size_t path_length = my_strlen(path_is(env,
     (char *)command)) + my_strlen(command) + 1;
 
-    path = (char *)malloc(path_length * sizeof(char));
+    path = (char *)malloc((1 + path_length) * sizeof(char));
     if (path == NULL) {
         my_printf("Malloc error\n");
         exit(84);
     }
-    my_strcpy(path, path_is(env, (char *)command));
-    my_strcat(path, (char *)command);
+    path = my_strcpy(path, path_is(env, (char *)command));
+    path = my_strcat(path, (char *)command);
     if (access(path, X_OK) == 0) {
         fork_exec(path, arguments, env);
     } else {
@@ -70,7 +70,6 @@ char **inputer(char *input, char **temp, char **env)
     extern char **environ;
     char *test = NULL;
     int size = cell_counter(input) - 1;
-    int return_v = 0;
     int is_passed = 0;
 
     test = strtok(input, " \t");
@@ -128,7 +127,8 @@ static void inf_lp(char *input, char **arg, char **temp, char **env)
     }
 }
 
-int main(int argc, __attribute__((unused))char **argv, char **env)
+int main(__attribute__((unused))int argc,
+    __attribute__((unused))char **argv, char **env)
 {
     char *input = NULL;
     char **arguments = NULL;

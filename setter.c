@@ -63,7 +63,6 @@ static int error_mana(int len, char **input, char **env)
 
 char **my_setenv(char **input, char **env)
 {
-    char **new_env = setenv_alloc(env);
     int count = 0;
     int is_end = 0;
     int input_len = 0;
