@@ -19,7 +19,7 @@ static int may_i_enter(char *path)
 static int go_home(void)
 {
     char whereami[128];
-    
+
     getcwd(whereami, 128);
     for (; my_strcmp("/home", whereami); chdir(". .")) {
         if (whereami[0] == '/')

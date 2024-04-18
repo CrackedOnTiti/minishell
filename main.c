@@ -65,24 +65,13 @@ int execer(const char *command, char *const arguments[], char **env)
     return 0;
 }
 
-void basic_err(char *input, int argc)
-{
-    if (input == NULL) {
-        my_printf("Unable to allocate input\n");
-        exit(84);
-    }
-    if (argc != 1) {
-        my_printf("No other arguments other than : ./mysh\n");
-        exit(84);
-    }
-}
-
-int inputer(char *input, char **temp, char **env)
+char **inputer(char *input, char **temp, char **env)
 {
     extern char **environ;
     char *test = NULL;
     int size = cell_counter(input) - 1;
     int return_v = 0;
+    int is_passed = 0;
 
     test = strtok(input, " \t");
     for (int i = 0; i != size; i++) {
@@ -91,19 +80,17 @@ int inputer(char *input, char **temp, char **env)
     }
     temp[size] = NULL;
     env = environ;
-    return_v = is_built_in(temp, env);
-    if (return_v == 69)
-        return 1;
-    if (return_v == 1)
-        return 0;
-    execer(temp[0], temp, env);
-    return 0;
+    env = is_built_in(temp, env, &is_passed);
+    if (!is_passed)
+        execer(temp[0], temp, env);
+    return env;
 }
 
 static int exit_mana(ssize_t length, char *input)
 {
     if (length == -1) {
-        my_printf("exit\n");
+        if (isatty(0))
+            my_printf("exit\n");
         exit(84);
     }
     if (terminator(input) == 1)
@@ -122,7 +109,7 @@ static void alloc_check(char **arguments)
 static void inf_lp(char *input, char **arg, char **temp, char **env)
 {
     ssize_t length = 0;
-    size_t bfsze = 128;
+    size_t bfsze = 0;
 
     while (1) {
         my_printf("\033[1;31mBASED\033[33m$>\033[0m ");
@@ -135,19 +122,19 @@ static void inf_lp(char *input, char **arg, char **temp, char **env)
         arg = malloc(sizeof(char *) * (cell_counter(input) + 1));
         temp = malloc(sizeof(char *) * (cell_counter(input) + 1));
         alloc_check(arg);
-        if (length + 1 == 1 || inputer(input, temp, env) == 1)
+        env = inputer(input, temp, env);
+        if (length + 1 == 1)
             continue;
     }
 }
 
 int main(int argc, __attribute__((unused))char **argv, char **env)
 {
-    char *input = (char *)malloc(128 * sizeof(char));
+    char *input = NULL;
     char **arguments = NULL;
     char **temp = NULL;
     char **env_cp = env_alloc(env);
 
-    basic_err(input, argc);
     inf_lp(input, arguments, temp, env_cp);
     free(input);
     free(temp);

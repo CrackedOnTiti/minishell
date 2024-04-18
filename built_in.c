@@ -6,22 +6,26 @@
 */
 #include "my.h"
 
-int is_built_in(char **input, char **env)
+char **is_built_in(char **input, char **env, int *is_passed)
 {
     if (my_strncmp(input[0], "cd", 2) == 0) {
-        if (change_direc(input) == 21)
-            return 69;
-        return 1;
+        change_direc(input);
+        *is_passed = 1;
+        return env;
     }
     if (my_strncmp(input[0], "env", 3) == 0) {
-        if (put_env(env) == 21)
-            return 69;
+        *is_passed = 1;
+        put_env(env);
+        return env;
     }
     if (my_strncmp(input[0], "setenv", 6) == 0) {
-        return 1;
+        my_setenv(input, env);
+        *is_passed = 1;
+        return env;
     }
     if (my_strncmp(input[0], "unsetenv", 8) == 0) {
-        return 1;
+        *is_passed = 1;
+        return env;
     }
-    return 0;
+    return env;
 }

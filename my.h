@@ -65,7 +65,7 @@ char *my_strcat(char *dest, const char *src);
 
 int cell_counter(char const *str);
 
-int is_built_in(char **input, char **env);
+char **is_built_in(char **input, char **env, int *is_passed);
 
 int change_direc(char **input);
 
@@ -73,10 +73,14 @@ void ttyerr(int status, int type, const char *command);
 
 char **env_alloc(char **env);
 
+char **setenv_alloc(char **env);
+
 int put_env(char **env);
 
 char *path_is(char **env, char *command);
 
 char **str_to_array_t(char *str);
+
+char **my_setenv(char **input, char **env);
 
 #endif
