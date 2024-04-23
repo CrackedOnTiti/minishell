@@ -39,8 +39,6 @@ static char *data_input(char *path, char *command, int *error)
         return command;
     for (int i = 0; path_data[i]; i++) {
         return_v = conditional(command, path_data[i]);
-        if (return_v == 2)
-            return command;
         if (return_v == 1)
             return path_data[i];
     }
