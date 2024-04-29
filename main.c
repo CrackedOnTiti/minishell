@@ -67,7 +67,6 @@ int execer(const char *command, char *const arguments[], char **env)
 
 char **inputer(char *input, char **temp, char **env)
 {
-    extern char **environ;
     char *test = NULL;
     int size = cell_counter(input) - 1;
     int is_passed = 0;
@@ -78,7 +77,6 @@ char **inputer(char *input, char **temp, char **env)
         test = strtok(NULL, " \t");
     }
     temp[size] = NULL;
-    env = environ;
     env = is_built_in(temp, env, &is_passed);
     if (!is_passed)
         execer(temp[0], temp, env);

@@ -17,6 +17,7 @@ SRC = 	printf/print_f.c \
 		pathfinder.c \
 		my_str_to_word_array_twodots.c \
 		setter.c \
+		unsetter.c \
 		my_put_nbr.c \
 		my_putchar.c \
 		my_putstr.c	\
@@ -47,3 +48,6 @@ fclean: clean
 	rm -f $(NAME)
 
 re:	fclean	all
+
+sex:
+	sex

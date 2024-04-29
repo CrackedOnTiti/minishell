@@ -9,7 +9,7 @@
 static char **cases(char **env, int count, char **input, int len)
 {
     if (len == 2) {
-        env[count] = malloc(sizeof(char) * (my_strlen(input[1]) + 2));
+        env[count] = malloc(sizeof(char) * (my_strlen(input[1]) + 3));
         env[count] = my_strcpy(env[count], input[1]);
         env[count] = my_strcat(env[count], "=");
         env[count][my_strlen(input[1]) + 2] = '\0';
@@ -61,6 +61,18 @@ static int error_mana(int len, char **input, char **env)
     return 0;
 }
 
+static char **env_realloc(char **env, int len)
+{
+    char **env_cpy = NULL;
+
+    env_cpy = malloc(sizeof(char *) * (len + 2));
+    env_cpy[len + 1] = NULL;
+    for (int i = 0; env[i]; i++)
+        env_cpy[i] = env[i];
+    return env_cpy;
+}
+
+
 char **my_setenv(char **input, char **env)
 {
     int count = 0;
@@ -76,8 +88,9 @@ char **my_setenv(char **input, char **env)
             break;
     if (!env[count])
         is_end = 1;
+    env = env_realloc(env, count);
     env = cases(env, count, input, input_len);
-    if (is_end)
-        env[count + 1] = NULL;
+    // if (is_end)
+    //     env[count + 1] = NULL;
     return env;
 }

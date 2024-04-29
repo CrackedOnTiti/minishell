@@ -10,13 +10,14 @@
 char **env_alloc(char **env)
 {
     char **out = NULL;
+    int i = 0;
     int cells = 0;
 
     for (; env[cells] != NULL; cells++)
-    out = malloc(sizeof(char *) * (cells + 1));
-    for (int i = 0; i < cells; i++)
+    out = malloc(sizeof(char *) * (cells + 2));
+    for (; env[i]; i++)
         out[i] = my_strdup(env[i]);
-    out[cells - 1] = NULL;
+    out[i] = NULL;
     return out;
 }
 

@@ -83,4 +83,6 @@ char **str_to_array_t(char *str);
 
 char **my_setenv(char **input, char **env);
 
+char **my_notsetenv(char **input, char **env);
+
 #endif

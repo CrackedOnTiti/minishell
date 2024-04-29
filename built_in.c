@@ -19,11 +19,12 @@ char **is_built_in(char **input, char **env, int *is_passed)
         return env;
     }
     if (my_strncmp(input[0], "setenv", 6) == 0) {
-        my_setenv(input, env);
+        env = my_setenv(input, env);
         *is_passed = 1;
         return env;
     }
     if (my_strncmp(input[0], "unsetenv", 8) == 0) {
+        env = my_notsetenv(input, env);
         *is_passed = 1;
         return env;
     }
