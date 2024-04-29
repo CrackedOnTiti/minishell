@@ -56,7 +56,7 @@ static void save_words_t(char **tab, char *str, int nb_words)
         begin = i;
         while (str[i] && is_it_alpha_t(str[i]) == 1)
             i++;
-        tab[word_cur] = (char *) malloc(sizeof(char) * ((i - 1) - begin + 2));
+        tab[word_cur] = (char *) malloc(sizeof(char) * ((i - 1) - begin + 3));
         dup_n_car_t(tab[word_cur], str, begin, i - 1);
         i++;
         word_cur++;

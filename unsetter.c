@@ -42,9 +42,9 @@ static char **var_remove(char **env, int i)
 static char **is_in_env(char *arg, char **env)
 {
     char *formatter = malloc(sizeof(char) * my_strlen(arg) + 2);
+
     formatter = my_strcpy(formatter, arg);
     formatter = my_strcat(formatter, "=\0");
-
     for (int i = 0; env[i] != NULL; i++)
         if (!my_strncmp(formatter, env[i], my_strlen(formatter)))
             return var_remove(env, i);

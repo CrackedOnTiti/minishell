@@ -53,7 +53,7 @@ static char *conditional2(char *command, char *path, char *env, int error)
         path = my_strcat(path, "/");
         return path;
     } else
-        return NULL;
+        return "\0";
     return 0;
 }
 

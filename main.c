@@ -46,8 +46,8 @@ int execer(const char *command, char *const arguments[], char **env)
 {
     char *path = NULL;
     char *p_path = my_strdup(command);
-    size_t path_length = my_strlen(path_is(env,
-    (char *)command)) + my_strlen(command) + 1;
+    size_t path_length = my_strlen(path_is(env, (char *)command))
+    + my_strlen(command) + 1;
 
     path = (char *)malloc((1 + path_length) * sizeof(char));
     if (path == NULL) {

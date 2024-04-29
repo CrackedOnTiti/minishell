@@ -72,7 +72,6 @@ static char **env_realloc(char **env, int len)
     return env_cpy;
 }
 
-
 char **my_setenv(char **input, char **env)
 {
     int count = 0;
@@ -90,7 +89,5 @@ char **my_setenv(char **input, char **env)
         is_end = 1;
     env = env_realloc(env, count);
     env = cases(env, count, input, input_len);
-    // if (is_end)
-    //     env[count + 1] = NULL;
     return env;
 }
