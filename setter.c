@@ -75,7 +75,6 @@ static char **env_realloc(char **env, int len)
 char **my_setenv(char **input, char **env)
 {
     int count = 0;
-    int is_end = 0;
     int input_len = 0;
 
     for (; input[input_len] != NULL; input_len++);
@@ -85,8 +84,6 @@ char **my_setenv(char **input, char **env)
         if (!my_strncmp(input[1], env[count], my_strlen(input[1])) &&
         env[count][my_strlen(input[1])] == '=')
             break;
-    if (!env[count])
-        is_end = 1;
     env = env_realloc(env, count);
     env = cases(env, count, input, input_len);
     return env;
