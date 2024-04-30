@@ -83,6 +83,20 @@ char **inputer(char *input, char **temp, char **env)
     return env;
 }
 
+static char **twodot_handler(char *inpt, char **env)
+{
+    char **mult_cmd = str_to_mefaitpaschier(inpt);
+    char **cmd = NULL;
+    int len = 0;
+
+    for (; mult_cmd[len]; len++);
+    for (int i = 0; i != len; i++) {
+        cmd = str_to_array_t(mult_cmd[i]);
+        env = inputer(mult_cmd[i], cmd, env);
+    }
+    return env;
+}
+
 static int exit_mana(ssize_t length, char *input)
 {
     if (length == -1) {
@@ -103,7 +117,7 @@ static void alloc_check(char **arguments)
     }
 }
 
-static void inf_lp(char *input, char **arg, char **temp, char **env)
+static void inf_lp(char *input, char **arg, char **env)
 {
     ssize_t length = 0;
     size_t bfsze = 0;
@@ -117,9 +131,8 @@ static void inf_lp(char *input, char **arg, char **temp, char **env)
             input[length - 1] = '\0';
         length--;
         arg = malloc(sizeof(char *) * (cell_counter(input) + 1));
-        temp = malloc(sizeof(char *) * (cell_counter(input) + 1));
         alloc_check(arg);
-        env = inputer(input, temp, env);
+        env = twodot_handler(input, env);
         if (length + 1 == 1)
             continue;
     }
@@ -130,12 +143,10 @@ int main(__attribute__((unused))int argc,
 {
     char *input = NULL;
     char **arguments = NULL;
-    char **temp = NULL;
     char **env_cp = env_alloc(env);
 
-    inf_lp(input, arguments, temp, env_cp);
+    inf_lp(input, arguments, env_cp);
     free(input);
-    free(temp);
     free(arguments);
     return 0;
 }

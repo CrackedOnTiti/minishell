@@ -16,6 +16,7 @@ SRC = 	printf/print_f.c \
 		env_prnt.c \
 		pathfinder.c \
 		my_str_to_word_array_twodots.c \
+		my_strtopointvirgule.c \
 		setter.c \
 		unsetter.c \
 		my_put_nbr.c \
