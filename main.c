@@ -72,6 +72,8 @@ char **inputer(char *input, char **temp, char **env)
     int is_passed = 0;
 
     test = strtok(input, " \t");
+    if (!test)
+        return env;
     for (int i = 0; i != size; i++) {
         temp[i] = test;
         test = strtok(NULL, " \t");

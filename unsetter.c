@@ -12,7 +12,7 @@ static int err_hnd(int len)
 
     if (len == 1) {
         write(2, "unsetenv: Too few arguments.\n", 30);
-        if (is_a_tty)
+        if (!is_a_tty)
             exit(1);
         return 84;
     }
