@@ -8,13 +8,13 @@
 
 static char **cases(char **env, int count, char **input, int len)
 {
-    if (len == 2) {
+    if (len == 2 && env) {
         env[count] = malloc(sizeof(char) * (my_strlen(input[1]) + 3));
         env[count] = my_strcpy(env[count], input[1]);
         env[count] = my_strcat(env[count], "=");
         env[count][my_strlen(input[1]) + 2] = '\0';
     }
-    if (len == 3) {
+    if (len == 3 && env) {
         env[count] = malloc(sizeof(char) *
         (my_strlen(input[1]) + my_strlen(input[2]) + 2));
         env[count] = my_strcpy(env[count], input[1]);
@@ -31,9 +31,12 @@ static void magik_func(int *error, char **input, int len)
         write(2, "setenv: Too many arguments.\n", 29);
         *error = 1;
     }
-    if (input[1][0] > 48 && input[1][0] < 58) {
+    if (((input[1][0] > 0 && input[1][0] < 48) || (input[1][0] > 57
+        && input[1][0] < 65) || (input[1][0] > 90 && input[1][0] < 97)
+        || input[1][0] > 122) && input[1][0] != '_') {
         write(2, "setenv: Variable name must begin with a letter.\n", 49);
         *error = 1;
+        return;
     }
     for (int i = 0; input[1][i] != '\0'; i++) {
         if (((input[1][i] > 0 && input[1][i] < 48) || (input[1][i] > 57
@@ -67,7 +70,7 @@ static char **env_realloc(char **env, int len)
 
     env_cpy = malloc(sizeof(char *) * (len + 2));
     env_cpy[len + 1] = NULL;
-    for (int i = 0; env[i]; i++)
+    for (int i = 0; env && env[i]; i++)
         env_cpy[i] = env[i];
     return env_cpy;
 }
@@ -80,7 +83,7 @@ char **my_setenv(char **input, char **env)
     for (; input[input_len] != NULL; input_len++);
     if (error_mana(input_len, input, env))
         return env;
-    for (; env[count]; count++)
+    for (; env && env[count]; count++)
         if (!my_strncmp(input[1], env[count], my_strlen(input[1])) &&
         env[count][my_strlen(input[1])] == '=')
             break;

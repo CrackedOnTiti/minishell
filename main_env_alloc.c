@@ -13,6 +13,8 @@ char **env_alloc(char **env)
     int i = 0;
     int cells = 0;
 
+    if (!env[0])
+        return out;
     for (; env[cells] != NULL; cells++)
     out = malloc(sizeof(char *) * (cells + 2));
     for (; env[i]; i++)
