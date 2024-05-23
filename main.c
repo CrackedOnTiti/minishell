@@ -126,7 +126,8 @@ static void inf_lp(char *input, char **arg, char **env)
     size_t bfsze = 0;
 
     while (1) {
-        my_printf("\033[1;31mBASED\033[33m$>\033[0m ");
+        if (isatty(0))
+            my_printf("\033[1;31mBASED\033[33m$>\033[0m ");
         length = getline(&input, &bfsze, stdin);
         if (exit_mana(length, input) == 1)
             break;

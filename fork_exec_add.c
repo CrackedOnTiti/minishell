@@ -20,7 +20,6 @@ void ttyerr(int status, int type, const char *command)
         if (type == 1)
             exit(139);
     }
-    printf("%d ; \n", status >> 8);
     if (status != 0 && type == 1)
         exit(status >> 8);
 }
