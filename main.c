@@ -38,7 +38,8 @@ static void fork_exec(char *path, char *const arguments[], char **env)
         waitpid(pid, &status, 0);
         if (!isatty(0))
             ttyerr(status, 1, arguments[0]);
-        ttyerr(status, 0, arguments[0]);
+        else
+            ttyerr(status, 0, arguments[0]);
     }
 }
 
