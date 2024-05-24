@@ -28,13 +28,13 @@ static char **cases(char **env, int count, char **input, int len)
 static void magik_func(int *error, char **input, int len)
 {
     if (len > 3) {
-        write(2, "setenv: Too many arguments.\n", 29);
+        write(2, "setenv: Too many arguments.\n", 28);
         *error = 1;
     }
     if (((input[1][0] > 0 && input[1][0] < 48) || (input[1][0] > 57
         && input[1][0] < 65) || (input[1][0] > 90 && input[1][0] < 97)
         || input[1][0] > 122) && input[1][0] != '_') {
-        write(2, "setenv: Variable name must begin with a letter.\n", 49);
+        write(2, "setenv: Variable name must begin with a letter.\n", 48);
         *error = 1;
         return;
     }
@@ -42,8 +42,8 @@ static void magik_func(int *error, char **input, int len)
         if (((input[1][i] > 0 && input[1][i] < 48) || (input[1][i] > 57
         && input[1][i] < 65) || (input[1][i] > 90 && input[1][i] < 97)
         || input[1][i] > 122) && input[1][i] != '_') {
-            write(2, "setenv: Variable name must ", 28);
-            write(2, "contain alphanumeric characters.\n", 34);
+            write(2, "setenv: Variable name must ", 27);
+            write(2, "contain alphanumeric characters.\n", 33);
             *error = 1;
         }
     }
